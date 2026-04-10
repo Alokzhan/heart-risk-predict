@@ -1,88 +1,63 @@
 {% extends 'index.html' %}
 {% load static %}
 {% block body %}
-<style>
-    .div1{
-    color:green;
-    }
-    .div2{
-    color:red;
-    }
-</style>
-<div class="container" style="width:60%;margin-top:8%;margin-bottom:5%;background:white;border-radius:2%;border:1px solid grey">
-    <br>
-    <h2 class="w3ls-title text-uppercase text-dark font-weight-bold" align="center">My Detail</h2>
 
-<div align="left" class="container-fluid" style="width:100%;margin-bottom:5%">
-    <hr><div class="row" >
-        <div class="col-md-6 div2" style="color: #414141; font-weight: 900;">
-            <strong>Full Name:</strong>
-        </div>
-        <div class="col-md-6 div1">
-            {{pro.user.first_name}} {{pro.user.last_name}}
-        </div>
-    </div><hr>
+	<section class="logins py-5">
+		<div class="container py-xl-5 py-lg-3">
+			<div class="title-section mb-md-5 mb-4">
+				<h6 class="w3ls-title-sub" style="color:red"></h6><br><br><center>
+				<h3 class="w3ls-title text-uppercase text-dark font-weight-bold">Heart Prediction Output</h3></center>
+			</div><hr/>
+			<div class="login px-sm-12" style="width:100%">
 
+                <h1 align='center' style='color:#414141'>Prediction output</h1><hr><center><p><b>Accuracy (%) is :</b> {{ accuracy }}  </p><p><b>Result:</b>
+                {% if pred == "0" %}
+                <span style='color:green'><strong>You are healthy.</strong></span>
+                {% else %}
+                <span style='color:red'><strong>You may posses a risk of heart disease.</strong></span>
+                {% endif %}
 
-    <div class="row">
-        <div class="col-md-6 div2" style="color: #414141; font-weight: 900;">
-            <strong>Image:</strong>
-        </div>
-        <div class="col-md-6">
-            <img src="{{pro.image.url}}" style="width:100px;height:130px"></img>
-        </div></div><hr>
+            </p></center>
 
-    <div class="row">
-        <div class="col-md-6 div2" style="color: #414141; font-weight: 900;">
-            <strong>Email Id :</strong>
-        </div>
-        <div class="col-md-6 div1">
-            {{pro.user.email}}
-        </div>
-    </div><hr>
+			</div>
+            {% if pred != "0" %}
 
-     <div class="row">
-        <div class="col-md-6 div2" style="color: #414141; font-weight: 900;">
-            <strong>Date of Birth :</strong>
-        </div>
-        <div class="col-md-6 div1">
-            {{pro.dob}}
-        </div>
-    </div><hr>
+            <div class="container-fluid" style="width:90%;margin-top:3%">
+                    <div class="container-fluid">
+                        <h1 align="center" class="w3ls-title text-uppercase text-dark font-weight-bold">Contact our doctors</h1>
+                         </div><hr>
+                                <table id="example" class="display" style="width:100%">
+                                  <thead>
+                                    <tr>
+                                      <th>#</th>
+                                      <th>Image</th>
+                                      <th>Full Name</th>
+                                      <th>Email</th>
+                                      <th>Contact</th>
+                                      <th>Address</th>
 
+                                  </tr>
+                              </thead>
+                              <tbody>
+                              {% for i in doctor %}
+                                <tr>
+                                  <td>{{forloop.counter}}</td>
+                                  <td><img src="{{i.image.url}}" style="width:80px;height:90px"></td>
+                                  <td>{{i.user.first_name}} {{i.user.last_name}}</td>
+                                  <td>{{i.user.email}}</td>
+                                  <td>{{i.contact}}</td>
+                                  <td>{{i.address}}</td>
+                              </tr>
+                              {% empty %}
+                              <tr>
+                                  <td colspan="5">No Record Found.</td>
+                              </tr>
+                              {% endfor %}
+                          </tbody>
+                      </table>
+                  </div>
+            {% endif %}
+		</div>
+	</section>
 
-     <div class="row">
-        <div class="col-md-6 div2" style="color: #414141; font-weight: 900;">
-            <strong>Contact :</strong>
-        </div>
-        <div class="col-md-6 div1">
-            {{pro.contact}}
-        </div>
-     </div><hr>
-
-    <div class="row">
-        <div class="col-md-6 div2" style="color: #414141; font-weight: 900;">
-            <strong>City :</strong>
-        </div>
-        <div class="col-md-6 div1">
-            {{pro.address}}
-        </div>
-    </div><hr>
-    {% ifnotequal error "pat" %}
-    <div class="row">
-        <div class="col-md-6 div2" style="color: #414141; font-weight: 900;">
-            <strong>Specialist :</strong>
-        </div>
-        <div class="col-md-6 div1">
-            {{pro.category}}
-        </div>
-    </div><hr>
-    {% endifnotequal %}
-    <div class="login px-sm-12" style="width:100%">
-    <a href="{% url 'edit_profile' %}">
-        <button class="btn submit mt-4 " style="width:100%; background-color: #726f6e;">Update Detail</button>
-    </a>
-    </div>
-</div>
-</div>
 {% endblock %}

@@ -69,50 +69,49 @@ def Gallery(request):
 
 def Login_User(request):
     error = ""
-
     if request.method == "POST":
-        u = request.POST.get('uname')
-        p = request.POST.get('pwd')
-
+        u = request.POST['uname']
+        p = request.POST['pwd']
         user = authenticate(username=u, password=p)
-
-        if user is not None:
-            if Patient.objects.filter(user=user).exists():
+        sign = ""
+        if user:
+            try:
+                sign = Patient.objects.get(user=user)
+            except:
+                pass
+            if sign:
                 login(request, user)
                 error = "pat1"
-
-            elif Doctor.objects.filter(user=user, status=1).exists():
-                login(request, user)
-                error = "pat2"
-
             else:
-                login(request, user)
-                error = "notmember"
+                pure=False
+                try:
+                    pure = Doctor.objects.get(status=1,user=user)
+                except:
+                    pass
+                if pure:
+                    login(request, user)
+                    error = "pat2"
+                else:
+                    login(request, user)
+                    error="notmember"
         else:
-            error = "not"
-
-    return render(request, 'login.html', {'error': error})
-
-from django.contrib.auth import authenticate, login
+            error="not"
+    d = {'error': error}
+    return render(request, 'login.html', d)
 
 def Login_admin(request):
     error = ""
     if request.method == "POST":
-        u = request.POST.get('uname')
-        p = request.POST.get('pwd')
-
+        u = request.POST['uname']
+        p = request.POST['pwd']
         user = authenticate(username=u, password=p)
-
-        if user is not None:
-            if user.is_staff:
-                login(request, user)
-                error = "pat"
-            else:
-                error = "notmember"
+        if user.is_staff:
+            login(request, user)
+            error="pat"
         else:
-            error = "not"
-
-    return render(request, 'admin_login.html', {'error': error})
+            error="not"
+    d = {'error': error}
+    return render(request, 'admin_login.html', d)
 
 def Signup_User(request):
     error = ""
@@ -178,9 +177,13 @@ def preprocess_inputs(df, scaler):
     return X, y
 
 
+import os
+from django.conf import settings
+
 def prdict_heart_disease(list_data):
-    csv_file = Admin_Helath_CSV.objects.get(id=1)
-    df = pd.read_csv(csv_file.csv_file)
+
+    file_path = os.path.join(settings.BASE_DIR, 'Machine_Learning', 'heart.csv')
+    df = pd.read_csv(file_path)
 
     X = df[['age','sex','cp',  'trestbps',  'chol',  'fbs',  'restecg',  'thalach',  'exang',  'oldpeak',  'slope',  'ca',  'thal']]
     y = df['target']

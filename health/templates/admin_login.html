@@ -5,21 +5,28 @@
 {% if error == "pat" %}
 <script>
     alert('logged in successfully');
-    window.location=('{% url 'admin_home' %}');
+    window.location = "{% url 'admin_home' %}";
 </script>
 {% endif %}
 
 {% if error == "notmember" %}
 <script>
     alert('Your information is pending. Please update your profile first.');
-    window.location=('{% url 'service_home' %}');
+    window.location = "{% url 'service_home' %}";
 </script>
 {% endif %}
 
 {% if error == "pat2" %}
 <script>
     alert('logged in successfully');
-    window.location=('{% url 'admin_home' %}');
+    window.location = "{% url 'doctor_home' %}";
+</script>
+{% endif %}
+
+{% if error == "pat1" %}
+<script>
+    alert('logged in successfully');
+    window.location = "{% url 'patient_home' %}";
 </script>
 {% endif %}
 
@@ -31,7 +38,6 @@
 
 <section class="logins py-5">
     <div class="container py-xl-5 py-lg-3">
-
         <div class="title-section mb-md-5 mb-4">
             <br><br>
             <center>
@@ -41,13 +47,12 @@
         <hr/>
 
         <div class="login px-sm-4 mx-auto mw-100 login-wrapper">
-            <form class="login-wrapper" action="" method="post">
+            <form action="" method="post">
                 {% csrf_token %}
 
                 <div class="form-group">
                     <label>Username</label>
                     <input type="text" class="form-control" name="uname" placeholder="Enter Username" required>
-                    <small class="form-text text-muted">Your privacy is our priority.</small>
                 </div>
 
                 <div class="form-group">
@@ -56,12 +61,13 @@
                 </div>
 
                 <center>
-                    <button type="submit" class="btn submit mt-4" style="background: #6a6b6c;">Login</button>
+                    <button type="submit" class="btn submit mt-4" style="background: #6a6b6c;">
+                        Login
+                    </button>
                 </center>
 
             </form>
         </div>
-
     </div>
 </section>
 
