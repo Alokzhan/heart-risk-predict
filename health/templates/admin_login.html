@@ -1,73 +1,92 @@
 {% extends 'index.html' %}
 {% load static %}
+
 {% block body %}
 
+<!-- SUCCESS: PAT -->
 {% if error == "pat" %}
 <script>
-    alert('logged in successfully');
-    window.location = "{% url 'admin_home' %}";
+    alert('Logged in successfully');
+    window.location="{% url 'admin_home' %}";
 </script>
 {% endif %}
 
+<!-- NOT MEMBER -->
 {% if error == "notmember" %}
 <script>
     alert('Your information is pending. Please update your profile first.');
-    window.location = "{% url 'service_home' %}";
+    window.location="{% url 'service_home' %}";
 </script>
 {% endif %}
 
+<!-- PAT2 -->
 {% if error == "pat2" %}
 <script>
-    alert('logged in successfully');
-    window.location = "{% url 'doctor_home' %}";
+    alert('Logged in successfully');
+    window.location="{% url 'admin_home' %}";
 </script>
 {% endif %}
 
-{% if error == "pat1" %}
-<script>
-    alert('logged in successfully');
-    window.location = "{% url 'patient_home' %}";
-</script>
-{% endif %}
-
+<!-- INVALID LOGIN -->
 {% if error == "not" %}
 <script>
-    alert('Username & Password are not Matching');
+    alert('Username & Password are not matching');
 </script>
 {% endif %}
 
 <section class="logins py-5">
     <div class="container py-xl-5 py-lg-3">
+
         <div class="title-section mb-md-5 mb-4">
-            <br><br>
             <center>
-                <h3 class="w3ls-title text-uppercase text-dark font-weight-bold">Login</h3>
+                <h3 class="w3ls-title text-uppercase text-dark font-weight-bold">
+                    Login
+                </h3>
             </center>
         </div>
+
         <hr/>
 
         <div class="login px-sm-4 mx-auto mw-100 login-wrapper">
-            <form action="" method="post">
+
+            <form method="post">
                 {% csrf_token %}
 
+                <!-- USERNAME -->
                 <div class="form-group">
                     <label>Username</label>
-                    <input type="text" class="form-control" name="uname" placeholder="Enter Username" required>
+                    <input type="text"
+                           class="form-control"
+                           name="uname"
+                           placeholder="Enter Username"
+                           required>
+                    <small class="form-text text-muted">
+                        Your privacy is our priority.
+                    </small>
                 </div>
 
+                <!-- PASSWORD -->
                 <div class="form-group">
                     <label>Password</label>
-                    <input type="password" class="form-control" name="pwd" placeholder="Enter Your Password" required>
+                    <input type="password"
+                           class="form-control"
+                           name="pwd"
+                           placeholder="Enter Your Password"
+                           required>
                 </div>
 
                 <center>
-                    <button type="submit" class="btn submit mt-4" style="background: #6a6b6c;">
+                    <button type="submit"
+                            class="btn submit mt-4"
+                            style="background: #6a6b6c;">
                         Login
                     </button>
                 </center>
 
             </form>
+
         </div>
+
     </div>
 </section>
 

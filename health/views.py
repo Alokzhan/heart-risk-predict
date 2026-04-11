@@ -177,13 +177,9 @@ def preprocess_inputs(df, scaler):
     return X, y
 
 
-import os
-from django.conf import settings
-
 def prdict_heart_disease(list_data):
-
-    file_path = os.path.join(settings.BASE_DIR, 'Machine_Learning', 'heart.csv')
-    df = pd.read_csv(file_path)
+    csv_file = Admin_Helath_CSV.objects.get(id=1)
+    df = pd.read_csv(csv_file.csv_file)
 
     X = df[['age','sex','cp',  'trestbps',  'chol',  'fbs',  'restecg',  'thalach',  'exang',  'oldpeak',  'slope',  'ca',  'thal']]
     y = df['target']
