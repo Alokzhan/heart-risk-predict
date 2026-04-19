@@ -2,8 +2,6 @@
 {% load static %}
 {% block body %}
 
-<!-- register -->
-
 {% if error == "create" %}
 <script>
     alert('Registration Successful');
@@ -13,8 +11,8 @@
 
 <section class="logins py-5">
     <div class="container py-xl-5 py-lg-3">
+
         <div class="title-section mb-md-5 mb-4">
-            <h6 class="w3ls-title-sub"></h6>
             <h3 class="w3ls-title text-uppercase text-dark font-weight-bold">Register Now</h3>
         </div>
         <hr/>
@@ -26,33 +24,33 @@
                 <div class="form-group row">
                     <div class="col-md-6">
                         <label>First Name</label>
-                        <input type="text" class="form-control" name="fname" placeholder="First Name" required>
+                        <input type="text" class="form-control" name="fname" required>
                     </div>
                     <div class="col-md-6">
                         <label>Last Name</label>
-                        <input type="text" class="form-control" name="lname" placeholder="Last Name" required>
+                        <input type="text" class="form-control" name="lname" required>
                     </div>
                 </div>
 
                 <div class="form-group row">
                     <div class="col-md-6">
                         <label>Username</label>
-                        <input type="text" class="form-control" name="uname" placeholder="Username" required>
+                        <input type="text" class="form-control" name="uname" required>
                     </div>
                     <div class="col-md-6">
                         <label>Password</label>
-                        <input type="password" class="form-control" name="pwd" placeholder="Password" required>
+                        <input type="password" class="form-control" name="pwd" required>
                     </div>
                 </div>
 
                 <div class="form-group row">
                     <div class="col-md-6">
                         <label>Email</label>
-                        <input type="email" class="form-control" name="email" placeholder="Enter Email" required>
+                        <input type="email" class="form-control" name="email" required>
                     </div>
                     <div class="col-md-6">
                         <label>Contact</label>
-                        <input type="text" class="form-control" name="contact" placeholder="Enter Contact" required>
+                        <input type="text" class="form-control" name="contact" required>
                     </div>
                 </div>
 
@@ -69,10 +67,9 @@
 
                 <div class="form-group row">
                     <div class="col-md-6">
-                        <label class="mb-2">City</label>
-                        <input type="text" class="form-control" name="add" placeholder="Enter Address" required>
+                        <label>City</label>
+                        <input type="text" class="form-control" name="add" required>
                     </div>
-
                     <div class="col-md-6">
                         <label>User Type</label>
                         <div class="form-control">

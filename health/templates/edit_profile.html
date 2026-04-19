@@ -1,12 +1,11 @@
 {% extends 'index.html' %}
 {% load static %}
-
 {% block body %}
 
-<!-- SUCCESS MESSAGE -->
+<!-- register -->
 {% if terror == "create" %}
 <script>
-    alert('Detail Updated Successfully');
+    alert('Detailed Updated Successfully');
     window.location="{% url 'profile_doctor' %}";
 </script>
 {% endif %}
@@ -19,72 +18,64 @@
                 Update My Detail
             </h3>
         </div>
-
         <hr/>
 
         <div class="login px-sm-12" style="width:100%">
-            <form action="" method="post" enctype="multipart/form-data">
+            <form method="post" enctype="multipart/form-data">
                 {% csrf_token %}
 
-                <!-- FIRST + LAST NAME -->
+                <!-- Name -->
                 <div class="form-group row">
                     <div class="col-md-6">
                         <label>First Name</label>
                         <input type="text" class="form-control"
-                               name="fname"
-                               value="{{ doc.user.first_name }}"
-                               required>
+                               value="{{ doc.user.first_name|default:'' }}"
+                               name="fname" required>
                     </div>
 
                     <div class="col-md-6">
                         <label>Last Name</label>
                         <input type="text" class="form-control"
-                               name="lname"
-                               value="{{ doc.user.last_name }}"
-                               required>
+                               value="{{ doc.user.last_name|default:'' }}"
+                               name="lname" required>
                     </div>
                 </div>
 
-                <!-- EMAIL + CONTACT -->
+                <!-- Email + Contact -->
                 <div class="form-group row">
                     <div class="col-md-6">
                         <label>Email</label>
                         <input type="email" class="form-control"
-                               name="email"
-                               value="{{ doc.user.email }}"
-                               required>
+                               value="{{ doc.user.email|default:'' }}"
+                               name="email" required>
                     </div>
 
                     <div class="col-md-6">
                         <label>Contact</label>
                         <input type="text" class="form-control"
                                name="contact"
-                               value="{{ doc.contact }}"
-                               required>
+                               value="{{ doc.contact|default:'' }}" required>
                     </div>
                 </div>
 
-                <!-- SPECIALIST (FIXED IF CONDITION) -->
+                <!-- Specialist (only if error != "pat") -->
                 {% if error != "pat" %}
                 <div class="form-group row">
                     <div class="col-md-12">
                         <label>Specialist</label>
-                        <input name="type"
-                               class="form-control"
-                               value="{{ doc.category }}">
+                        <input name="type" class="form-control"
+                               value="{{ doc.category|default:'' }}">
                     </div>
                 </div>
                 {% endif %}
 
-                <!-- CITY + IMAGE -->
+                <!-- Address + Image -->
                 <div class="form-group row">
                     <div class="col-md-6">
                         <label>City</label>
-                        <input type="text"
-                               class="form-control"
-                               name="add"
-                               value="{{ doc.address }}"
-                               required>
+                        <input type="text" class="form-control"
+                               value="{{ doc.address|default:'' }}"
+                               name="add" required>
                     </div>
 
                     <div class="col-md-4">
@@ -93,20 +84,18 @@
                     </div>
 
                     <div class="col-md-2">
-                        <img src="{{ doc.image.url }}"
-                             style="width:100%; height:150px;">
+                        {% if doc.image %}
+                        <img src="{{ doc.image.url }}" style="width:100%;height:150px">
+                        {% endif %}
                     </div>
                 </div>
 
-                <button type="submit"
-                        class="btn submit mt-4"
-                        style="background-color: #726f6e;">
+                <button type="submit" class="btn submit mt-4" style="background-color: #726f6e;">
                     Update Detail
                 </button>
 
             </form>
         </div>
-
     </div>
 </section>
 

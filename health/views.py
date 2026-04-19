@@ -105,9 +105,12 @@ def Login_admin(request):
         u = request.POST['uname']
         p = request.POST['pwd']
         user = authenticate(username=u, password=p)
-        if user.is_staff:
-            login(request, user)
-            error="pat"
+        if user is not None:
+            if user.is_staff:
+                login(request, user)
+                error="pat"
+            else:
+                error="not"
         else:
             error="not"
     d = {'error': error}
@@ -127,12 +130,23 @@ def Signup_User(request):
         type = request.POST['type']
         im = request.FILES['image']
         dat = datetime.date.today()
-        user = User.objects.create_user(email=e, username=u, password=p, first_name=f,last_name=l)
-        if type == "Patient":
-            Patient.objects.create(user=user,contact=con,address=add,image=im,dob=d)
+        
+        # Check if username already exists
+        if User.objects.filter(username=u).exists():
+            error = "username_exists"
+        # Check if email already exists
+        elif User.objects.filter(email=e).exists():
+            error = "email_exists"
         else:
-            Doctor.objects.create(dob=d,image=im,user=user,contact=con,address=add,status=2)
-        error = "create"
+            try:
+                user = User.objects.create_user(email=e, username=u, password=p, first_name=f,last_name=l)
+                if type == "Patient":
+                    Patient.objects.create(user=user,contact=con,address=add,image=im,dob=d)
+                else:
+                    Doctor.objects.create(dob=d,image=im,user=user,contact=con,address=add,status=2)
+                error = "create"
+            except Exception as ex:
+                error = "error"
     d = {'error':error}
     return render(request,'register.html',d)
 
