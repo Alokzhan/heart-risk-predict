@@ -9,6 +9,15 @@
         <h3 class="text-dark font-weight-bold">Add Heart Detail</h3>
         <hr>
 
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    {{ message }}
+                    <button type="button" class="close" data-dismiss="alert">&times;</button>
+                </div>
+            {% endfor %}
+        {% endif %}
+
         <form method="post">
             {% csrf_token %}
 
@@ -16,32 +25,46 @@
 
                 <div class="col-md-2">
                     <label>Age</label>
-                    <input type="text" name="age" class="form-control" required>
+                    <input type="number" name="age" class="form-control" min="1" max="120" placeholder="e.g. 52" required>
                 </div>
 
                 <div class="col-md-2">
-                    <label>Sex (Male/Female)</label>
-                    <input type="text" name="sex" class="form-control" required>
+                    <label>Sex</label>
+                    <select name="sex" class="form-control" required>
+                        <option value="" disabled selected>Select</option>
+                        <option value="male">Male</option>
+                        <option value="female">Female</option>
+                    </select>
                 </div>
 
                 <div class="col-md-2">
-                    <label>Chest Pain</label>
-                    <input type="text" name="cp" class="form-control" required>
+                    <label>Chest Pain Type</label>
+                    <select name="cp" class="form-control" required>
+                        <option value="" disabled selected>Select</option>
+                        <option value="0">0 - Typical angina</option>
+                        <option value="1">1 - Atypical angina</option>
+                        <option value="2">2 - Non-anginal pain</option>
+                        <option value="3">3 - Asymptomatic</option>
+                    </select>
                 </div>
 
                 <div class="col-md-2">
-                    <label>Resting BP</label>
-                    <input type="text" name="trestbps" class="form-control" required>
+                    <label>Resting BP (mmHg)</label>
+                    <input type="number" name="trestbps" class="form-control" min="50" max="250" placeholder="e.g. 120" required>
                 </div>
 
                 <div class="col-md-2">
-                    <label>Cholesterol</label>
-                    <input type="text" name="chol" class="form-control" required>
+                    <label>Cholesterol (mg/dl)</label>
+                    <input type="number" name="chol" class="form-control" min="100" max="600" placeholder="e.g. 240" required>
                 </div>
 
                 <div class="col-md-2">
-                    <label>Fasting BS</label>
-                    <input type="text" name="fbs" class="form-control" required>
+                    <label>Fasting Blood Sugar</label>
+                    <select name="fbs" class="form-control" required>
+                        <option value="" disabled selected>Select</option>
+                        <option value="0">0 - No (&le;120 mg/dl)</option>
+                        <option value="1">1 - Yes (&gt;120 mg/dl)</option>
+                    </select>
                 </div>
 
             </div>
@@ -51,33 +74,53 @@
             <div class="row">
 
                 <div class="col-md-2">
-                    <label>ECG</label>
-                    <input type="text" name="restecg" class="form-control" required>
+                    <label>Resting ECG</label>
+                    <select name="restecg" class="form-control" required>
+                        <option value="" disabled selected>Select</option>
+                        <option value="0">0 - Normal</option>
+                        <option value="1">1 - ST-T abnormality</option>
+                        <option value="2">2 - LV hypertrophy</option>
+                    </select>
                 </div>
 
                 <div class="col-md-2">
-                    <label>Max Heart Rate</label>
-                    <input type="text" name="thalach" class="form-control" required>
+                    <label>Max Heart Rate (bpm)</label>
+                    <input type="number" name="thalach" class="form-control" min="60" max="220" placeholder="e.g. 150" required>
                 </div>
 
                 <div class="col-md-2">
-                    <label>Exercise Induced</label>
-                    <input type="text" name="exang" class="form-control" required>
+                    <label>Exercise Induced Angina</label>
+                    <select name="exang" class="form-control" required>
+                        <option value="" disabled selected>Select</option>
+                        <option value="0">0 - No</option>
+                        <option value="1">1 - Yes</option>
+                    </select>
                 </div>
 
                 <div class="col-md-2">
-                    <label>Oldpeak</label>
-                    <input type="text" name="oldpeak" class="form-control" required>
+                    <label>Oldpeak (ST depression)</label>
+                    <input type="number" name="oldpeak" class="form-control" min="0" max="10" step="0.1" placeholder="e.g. 1.5" required>
                 </div>
 
                 <div class="col-md-2">
                     <label>Slope</label>
-                    <input type="text" name="slope" class="form-control" required>
+                    <select name="slope" class="form-control" required>
+                        <option value="" disabled selected>Select</option>
+                        <option value="0">0 - Upsloping</option>
+                        <option value="1">1 - Flat</option>
+                        <option value="2">2 - Downsloping</option>
+                    </select>
                 </div>
 
                 <div class="col-md-2">
-                    <label>CA</label>
-                    <input type="text" name="ca" class="form-control" required>
+                    <label>CA (major vessels)</label>
+                    <select name="ca" class="form-control" required>
+                        <option value="" disabled selected>Select</option>
+                        <option value="0">0</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                    </select>
                 </div>
 
             </div>
@@ -87,7 +130,12 @@
             <div class="row">
                 <div class="col-md-2">
                     <label>Thal</label>
-                    <input type="text" name="thal" class="form-control" required>
+                    <select name="thal" class="form-control" required>
+                        <option value="" disabled selected>Select</option>
+                        <option value="1">1 - Normal</option>
+                        <option value="2">2 - Fixed defect</option>
+                        <option value="3">3 - Reversible defect</option>
+                    </select>
                 </div>
             </div>
 
