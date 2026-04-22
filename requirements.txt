@@ -1,0 +1,7 @@
+Django==3.1.6
+djangorestframework
+pandas
+scikit-learn
+numpy
+matplotlib
+seaborn
