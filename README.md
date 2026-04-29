@@ -82,12 +82,7 @@ python main.py
 
 ## 📈 Model Performance
 
--   Accuracy: XX%
--   Precision: XX%
--   Recall: XX%
--   F1 Score: XX%
-
-
+-   Accuracy: 85%
 ----------
 
 ## 📂 Project Structure
